@@ -2412,6 +2412,121 @@
             border-color: rgba(255, 255, 255, 0.3);
         }
 
+        /* 9:16 Vertical Card */
+        .glass-card-9-16 {
+            width: 320px;
+            height: 568px; /* 16/9 ratio */
+            background: rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(15px) saturate(180%);
+            -webkit-backdrop-filter: blur(15px) saturate(180%);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            border-radius: 24px;
+            padding: 24px;
+            box-shadow: 0 16px 64px rgba(0, 0, 0, 0.4);
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .glass-card-header-vertical {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .glass-avatar {
+            flex-shrink: 0;
+        }
+
+        .glass-user-info h4 {
+            font-size: 1rem;
+            font-weight: 600;
+            color: #fff;
+            margin: 0;
+        }
+
+        .glass-user-info p {
+            font-size: 0.85rem;
+            color: rgba(255, 255, 255, 0.6);
+            margin: 4px 0 0 0;
+        }
+
+        .glass-chart-container {
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 16px;
+            padding: 16px;
+            margin: 8px 0;
+        }
+
+        .glass-stats-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+        }
+
+        .glass-stat-item {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 12px;
+            text-align: center;
+        }
+
+        .glass-stat-value {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: #fff;
+            margin-bottom: 4px;
+        }
+
+        .glass-stat-label {
+            font-size: 0.75rem;
+            color: rgba(255, 255, 255, 0.6);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 4px;
+        }
+
+        .glass-stat-change {
+            font-size: 0.85rem;
+            color: rgba(100, 255, 150, 0.9);
+            font-weight: 600;
+        }
+
+        .glass-progress-section {
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 12px;
+            padding: 16px;
+        }
+
+        .glass-progress-label-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        .glass-btn-full {
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(135deg, rgba(100, 200, 255, 0.3), rgba(150, 100, 255, 0.3));
+            border: 1px solid rgba(100, 200, 255, 0.4);
+            border-radius: 12px;
+            color: #fff;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: auto;
+        }
+
+        .glass-btn-full:hover {
+            background: linear-gradient(135deg, rgba(100, 200, 255, 0.5), rgba(150, 100, 255, 0.5));
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(100, 200, 255, 0.3);
+        }
+
         /* Component Editor Modal */
         .editor-modal {
             display: none;
@@ -3298,6 +3413,105 @@
                     <span class="component-name">Gallery Modal</span>
                     <button class="edit-btn" data-component="glass-gallery-modal">Edit</button>
                     <button class="copy-btn" data-component="glass-gallery-modal">Copy Code</button>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- VERTICAL 9:16 CARDS -->
+    <section class="section" data-section="glass-vertical">
+        <h2 class="section-title">
+            Vertical Cards (9:16 Portrait)
+            <button class="bg-toggle-btn" data-section="glass-vertical">Toggle Background</button>
+        </h2>
+        <div class="components-grid">
+
+            <!-- 9:16 Story Card -->
+            <div class="component-card">
+                <div class="component-preview">
+                    <div class="glass-card-9-16">
+                        <div class="glass-card-header-vertical">
+                            <div class="glass-avatar">
+                                <svg width="48" height="48" viewBox="0 0 48 48">
+                                    <circle cx="24" cy="24" r="24" fill="rgba(100, 200, 255, 0.3)"/>
+                                    <circle cx="24" cy="18" r="8" fill="rgba(255, 255, 255, 0.6)"/>
+                                    <path d="M12 40 C12 32 36 32 36 40" fill="rgba(255, 255, 255, 0.6)"/>
+                                </svg>
+                            </div>
+                            <div class="glass-user-info">
+                                <h4>Analytics Dashboard</h4>
+                                <p>Real-time insights</p>
+                            </div>
+                        </div>
+
+                        <div class="glass-chart-container">
+                            <svg width="100%" height="200" viewBox="0 0 280 200">
+                                <!-- Background grid -->
+                                <line x1="0" y1="50" x2="280" y2="50" stroke="rgba(255,255,255,0.1)" stroke-width="1"/>
+                                <line x1="0" y1="100" x2="280" y2="100" stroke="rgba(255,255,255,0.1)" stroke-width="1"/>
+                                <line x1="0" y1="150" x2="280" y2="150" stroke="rgba(255,255,255,0.1)" stroke-width="1"/>
+
+                                <!-- Line chart -->
+                                <polyline points="20,150 60,120 100,140 140,80 180,100 220,60 260,90"
+                                         stroke="rgba(100, 200, 255, 0.8)" stroke-width="3" fill="none"/>
+
+                                <!-- Gradient fill -->
+                                <defs>
+                                    <linearGradient id="chartGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+                                        <stop offset="0%" style="stop-color:rgba(100, 200, 255, 0.3);stop-opacity:1" />
+                                        <stop offset="100%" style="stop-color:rgba(100, 200, 255, 0);stop-opacity:1" />
+                                    </linearGradient>
+                                </defs>
+                                <polygon points="20,150 60,120 100,140 140,80 180,100 220,60 260,90 260,180 20,180"
+                                        fill="url(#chartGrad)"/>
+
+                                <!-- Data points -->
+                                <circle cx="20" cy="150" r="4" fill="rgba(100, 200, 255, 1)"/>
+                                <circle cx="60" cy="120" r="4" fill="rgba(100, 200, 255, 1)"/>
+                                <circle cx="100" cy="140" r="4" fill="rgba(100, 200, 255, 1)"/>
+                                <circle cx="140" cy="80" r="4" fill="rgba(100, 200, 255, 1)"/>
+                                <circle cx="180" cy="100" r="4" fill="rgba(100, 200, 255, 1)"/>
+                                <circle cx="220" cy="60" r="4" fill="rgba(100, 200, 255, 1)"/>
+                                <circle cx="260" cy="90" r="4" fill="rgba(100, 200, 255, 1)"/>
+                            </svg>
+                        </div>
+
+                        <div class="glass-stats-grid">
+                            <div class="glass-stat-item">
+                                <div class="glass-stat-value">12.5K</div>
+                                <div class="glass-stat-label">Views</div>
+                                <div class="glass-stat-change">+23%</div>
+                            </div>
+                            <div class="glass-stat-item">
+                                <div class="glass-stat-value">8.2K</div>
+                                <div class="glass-stat-label">Clicks</div>
+                                <div class="glass-stat-change">+18%</div>
+                            </div>
+                            <div class="glass-stat-item">
+                                <div class="glass-stat-value">2.1K</div>
+                                <div class="glass-stat-label">Shares</div>
+                                <div class="glass-stat-change">+45%</div>
+                            </div>
+                        </div>
+
+                        <div class="glass-progress-section">
+                            <div class="glass-progress-label-row">
+                                <span>Campaign Progress</span>
+                                <span>78%</span>
+                            </div>
+                            <div class="glass-progress-bar">
+                                <div class="glass-progress-fill" style="width: 78%; background: linear-gradient(90deg, rgba(100, 200, 255, 0.6), rgba(150, 100, 255, 0.6));"></div>
+                            </div>
+                        </div>
+
+                        <button class="glass-btn-full">View Full Report</button>
+                    </div>
+                </div>
+                <div class="component-info">
+                    <span class="component-name">9:16 Analytics Card</span>
+                    <button class="edit-btn" data-component="glass-card-9-16">Edit</button>
+                    <button class="copy-btn" data-component="glass-card-9-16">Copy Code</button>
                 </div>
             </div>
 
@@ -4467,6 +4681,184 @@
     width: 100%;
     height: 100%;
     object-fit: cover;
+}`,
+
+            'glass-card-9-16': `<!-- HTML -->
+<div class="glass-card-9-16">
+    <div class="glass-card-header-vertical">
+        <div class="glass-avatar">
+            <svg width="48" height="48" viewBox="0 0 48 48">
+                <circle cx="24" cy="24" r="24" fill="rgba(100, 200, 255, 0.3)"/>
+                <circle cx="24" cy="18" r="8" fill="rgba(255, 255, 255, 0.6)"/>
+                <path d="M12 40 C12 32 36 32 36 40" fill="rgba(255, 255, 255, 0.6)"/>
+            </svg>
+        </div>
+        <div class="glass-user-info">
+            <h4>Analytics Dashboard</h4>
+            <p>Real-time insights</p>
+        </div>
+    </div>
+
+    <div class="glass-chart-container">
+        <svg width="100%" height="200" viewBox="0 0 280 200">
+            <line x1="0" y1="50" x2="280" y2="50" stroke="rgba(255,255,255,0.1)" stroke-width="1"/>
+            <line x1="0" y1="100" x2="280" y2="100" stroke="rgba(255,255,255,0.1)" stroke-width="1"/>
+            <line x1="0" y1="150" x2="280" y2="150" stroke="rgba(255,255,255,0.1)" stroke-width="1"/>
+            <polyline points="20,150 60,120 100,140 140,80 180,100 220,60 260,90"
+                     stroke="rgba(100, 200, 255, 0.8)" stroke-width="3" fill="none"/>
+            <defs>
+                <linearGradient id="chartGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+                    <stop offset="0%" style="stop-color:rgba(100, 200, 255, 0.3);stop-opacity:1" />
+                    <stop offset="100%" style="stop-color:rgba(100, 200, 255, 0);stop-opacity:1" />
+                </linearGradient>
+            </defs>
+            <polygon points="20,150 60,120 100,140 140,80 180,100 220,60 260,90 260,180 20,180"
+                    fill="url(#chartGrad)"/>
+            <circle cx="20" cy="150" r="4" fill="rgba(100, 200, 255, 1)"/>
+            <circle cx="60" cy="120" r="4" fill="rgba(100, 200, 255, 1)"/>
+            <circle cx="100" cy="140" r="4" fill="rgba(100, 200, 255, 1)"/>
+            <circle cx="140" cy="80" r="4" fill="rgba(100, 200, 255, 1)"/>
+            <circle cx="180" cy="100" r="4" fill="rgba(100, 200, 255, 1)"/>
+            <circle cx="220" cy="60" r="4" fill="rgba(100, 200, 255, 1)"/>
+            <circle cx="260" cy="90" r="4" fill="rgba(100, 200, 255, 1)"/>
+        </svg>
+    </div>
+
+    <div class="glass-stats-grid">
+        <div class="glass-stat-item">
+            <div class="glass-stat-value">12.5K</div>
+            <div class="glass-stat-label">Views</div>
+            <div class="glass-stat-change">+23%</div>
+        </div>
+        <div class="glass-stat-item">
+            <div class="glass-stat-value">8.2K</div>
+            <div class="glass-stat-label">Clicks</div>
+            <div class="glass-stat-change">+18%</div>
+        </div>
+        <div class="glass-stat-item">
+            <div class="glass-stat-value">2.1K</div>
+            <div class="glass-stat-label">Shares</div>
+            <div class="glass-stat-change">+45%</div>
+        </div>
+    </div>
+
+    <div class="glass-progress-section">
+        <div class="glass-progress-label-row">
+            <span>Campaign Progress</span>
+            <span>78%</span>
+        </div>
+        <div class="glass-progress-bar">
+            <div class="glass-progress-fill" style="width: 78%; background: linear-gradient(90deg, rgba(100, 200, 255, 0.6), rgba(150, 100, 255, 0.6));"></div>
+        </div>
+    </div>
+
+    <button class="glass-btn-full">View Full Report</button>
+</div>
+
+<!-- CSS -->
+.glass-card-9-16 {
+    width: 320px;
+    height: 568px;
+    background: rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(15px) saturate(180%);
+    -webkit-backdrop-filter: blur(15px) saturate(180%);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    border-radius: 24px;
+    padding: 24px;
+    box-shadow: 0 16px 64px rgba(0, 0, 0, 0.4);
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.glass-card-header-vertical {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.glass-avatar { flex-shrink: 0; }
+
+.glass-user-info h4 {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #fff;
+    margin: 0;
+}
+
+.glass-user-info p {
+    font-size: 0.85rem;
+    color: rgba(255, 255, 255, 0.6);
+    margin: 4px 0 0 0;
+}
+
+.glass-chart-container {
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 16px;
+    padding: 16px;
+}
+
+.glass-stats-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+}
+
+.glass-stat-item {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    padding: 12px;
+    text-align: center;
+}
+
+.glass-stat-value {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: #fff;
+}
+
+.glass-stat-label {
+    font-size: 0.75rem;
+    color: rgba(255, 255, 255, 0.6);
+    text-transform: uppercase;
+}
+
+.glass-stat-change {
+    font-size: 0.85rem;
+    color: rgba(100, 255, 150, 0.9);
+    font-weight: 600;
+}
+
+.glass-progress-section {
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 12px;
+    padding: 16px;
+}
+
+.glass-progress-label-row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 8px;
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.glass-btn-full {
+    width: 100%;
+    padding: 14px;
+    background: linear-gradient(135deg, rgba(100, 200, 255, 0.3), rgba(150, 100, 255, 0.3));
+    border: 1px solid rgba(100, 200, 255, 0.4);
+    border-radius: 12px;
+    color: #fff;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-top: auto;
+}
+
+.glass-btn-full:hover {
+    background: linear-gradient(135deg, rgba(100, 200, 255, 0.5), rgba(150, 100, 255, 0.5));
+    transform: translateY(-2px);
 }`
         };
 
@@ -5122,6 +5514,78 @@
     <div class="glass-modal-actions">
         <button class="glass-modal-btn glass-modal-btn-primary">${data.buttonText || 'View All'}</button>
     </div>
+</div>`
+            },
+            'glass-card-9-16': {
+                name: '9:16 Analytics Card',
+                fields: [
+                    { name: 'title', label: 'Title', type: 'text', default: 'Analytics Dashboard' },
+                    { name: 'subtitle', label: 'Subtitle', type: 'text', default: 'Real-time insights' },
+                    { name: 'stat1Value', label: 'Stat 1 Value', type: 'text', default: '12.5K' },
+                    { name: 'stat1Label', label: 'Stat 1 Label', type: 'text', default: 'Views' },
+                    { name: 'stat1Change', label: 'Stat 1 Change', type: 'text', default: '+23%' },
+                    { name: 'stat2Value', label: 'Stat 2 Value', type: 'text', default: '8.2K' },
+                    { name: 'stat2Label', label: 'Stat 2 Label', type: 'text', default: 'Clicks' },
+                    { name: 'stat2Change', label: 'Stat 2 Change', type: 'text', default: '+18%' },
+                    { name: 'stat3Value', label: 'Stat 3 Value', type: 'text', default: '2.1K' },
+                    { name: 'stat3Label', label: 'Stat 3 Label', type: 'text', default: 'Shares' },
+                    { name: 'stat3Change', label: 'Stat 3 Change', type: 'text', default: '+45%' },
+                    { name: 'progressLabel', label: 'Progress Label', type: 'text', default: 'Campaign Progress' },
+                    { name: 'progressValue', label: 'Progress Value', type: 'text', default: '78%' },
+                    { name: 'buttonText', label: 'Button Text', type: 'text', default: 'View Full Report' }
+                ],
+                template: (data) => `<div class="glass-card-9-16">
+    <div class="glass-card-header-vertical">
+        <div class="glass-avatar">
+            <svg width="48" height="48" viewBox="0 0 48 48">
+                <circle cx="24" cy="24" r="24" fill="rgba(100, 200, 255, 0.3)"/>
+                <circle cx="24" cy="18" r="8" fill="rgba(255, 255, 255, 0.6)"/>
+                <path d="M12 40 C12 32 36 32 36 40" fill="rgba(255, 255, 255, 0.6)"/>
+            </svg>
+        </div>
+        <div class="glass-user-info">
+            <h4>${data.title || 'Analytics Dashboard'}</h4>
+            <p>${data.subtitle || 'Real-time insights'}</p>
+        </div>
+    </div>
+    <div class="glass-chart-container">
+        <svg width="100%" height="200" viewBox="0 0 280 200">
+            <line x1="0" y1="50" x2="280" y2="50" stroke="rgba(255,255,255,0.1)" stroke-width="1"/>
+            <line x1="0" y1="100" x2="280" y2="100" stroke="rgba(255,255,255,0.1)" stroke-width="1"/>
+            <line x1="0" y1="150" x2="280" y2="150" stroke="rgba(255,255,255,0.1)" stroke-width="1"/>
+            <polyline points="20,150 60,120 100,140 140,80 180,100 220,60 260,90" stroke="rgba(100, 200, 255, 0.8)" stroke-width="3" fill="none"/>
+            <defs><linearGradient id="chartGrad" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" style="stop-color:rgba(100, 200, 255, 0.3);stop-opacity:1" /><stop offset="100%" style="stop-color:rgba(100, 200, 255, 0);stop-opacity:1" /></linearGradient></defs>
+            <polygon points="20,150 60,120 100,140 140,80 180,100 220,60 260,90 260,180 20,180" fill="url(#chartGrad)"/>
+            <circle cx="20" cy="150" r="4" fill="rgba(100, 200, 255, 1)"/><circle cx="60" cy="120" r="4" fill="rgba(100, 200, 255, 1)"/><circle cx="100" cy="140" r="4" fill="rgba(100, 200, 255, 1)"/><circle cx="140" cy="80" r="4" fill="rgba(100, 200, 255, 1)"/><circle cx="180" cy="100" r="4" fill="rgba(100, 200, 255, 1)"/><circle cx="220" cy="60" r="4" fill="rgba(100, 200, 255, 1)"/><circle cx="260" cy="90" r="4" fill="rgba(100, 200, 255, 1)"/>
+        </svg>
+    </div>
+    <div class="glass-stats-grid">
+        <div class="glass-stat-item">
+            <div class="glass-stat-value">${data.stat1Value || '12.5K'}</div>
+            <div class="glass-stat-label">${data.stat1Label || 'Views'}</div>
+            <div class="glass-stat-change">${data.stat1Change || '+23%'}</div>
+        </div>
+        <div class="glass-stat-item">
+            <div class="glass-stat-value">${data.stat2Value || '8.2K'}</div>
+            <div class="glass-stat-label">${data.stat2Label || 'Clicks'}</div>
+            <div class="glass-stat-change">${data.stat2Change || '+18%'}</div>
+        </div>
+        <div class="glass-stat-item">
+            <div class="glass-stat-value">${data.stat3Value || '2.1K'}</div>
+            <div class="glass-stat-label">${data.stat3Label || 'Shares'}</div>
+            <div class="glass-stat-change">${data.stat3Change || '+45%'}</div>
+        </div>
+    </div>
+    <div class="glass-progress-section">
+        <div class="glass-progress-label-row">
+            <span>${data.progressLabel || 'Campaign Progress'}</span>
+            <span>${data.progressValue || '78%'}</span>
+        </div>
+        <div class="glass-progress-bar">
+            <div class="glass-progress-fill" style="width: ${data.progressValue || '78%'}; background: linear-gradient(90deg, rgba(100, 200, 255, 0.6), rgba(150, 100, 255, 0.6));"></div>
+        </div>
+    </div>
+    <button class="glass-btn-full">${data.buttonText || 'View Full Report'}</button>
 </div>`
             }
         };

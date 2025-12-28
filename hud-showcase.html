@@ -2949,6 +2949,83 @@
             gap: 30px;
         }
 
+        /* Combined Projects + Layout Designer */
+        .projects-section .section-title {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+
+        .projects-layout-container {
+            display: flex;
+            gap: 20px;
+            min-height: 500px;
+        }
+
+        .projects-list-panel {
+            width: 320px;
+            flex-shrink: 0;
+            background: rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 16px;
+            max-height: 600px;
+            overflow-y: auto;
+        }
+
+        .projects-list-panel h4 {
+            color: #fff;
+            margin: 0 0 8px 0;
+            font-size: 1rem;
+        }
+
+        .projects-list-panel .projects-empty {
+            padding: 30px 10px;
+        }
+
+        .projects-list-panel .projects-empty-icon {
+            font-size: 2.5rem;
+        }
+
+        .projects-grid-vertical {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .projects-grid-vertical .project-card {
+            cursor: grab;
+            transition: all 0.3s ease;
+        }
+
+        .projects-grid-vertical .project-card:active {
+            cursor: grabbing;
+        }
+
+        .projects-grid-vertical .project-card:hover {
+            transform: translateX(5px);
+            border-color: rgba(100, 200, 255, 0.5);
+        }
+
+        .projects-grid-vertical .project-card .project-preview {
+            padding: 12px;
+            max-height: 120px;
+            overflow: hidden;
+        }
+
+        .projects-grid-vertical .project-card .project-preview > * {
+            transform: scale(0.6);
+            transform-origin: top left;
+        }
+
+        .projects-grid-vertical .project-card .project-info {
+            padding: 8px 12px;
+            font-size: 0.85rem;
+        }
+
         .project-card {
             background: var(--hud-bg);
             border: 1px solid var(--hud-border);
@@ -2990,38 +3067,7 @@
             background: rgba(255, 100, 100, 0.5);
         }
 
-        /* Layout Designer */
-        .layout-designer-toggle {
-            background: linear-gradient(135deg, rgba(255, 150, 50, 0.3), rgba(255, 100, 100, 0.3));
-            border: 1px solid rgba(255, 150, 50, 0.4);
-            color: #fff;
-            padding: 10px 20px;
-            border-radius: 8px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            transition: all 0.3s ease;
-        }
-
-        .layout-designer-toggle:hover {
-            background: linear-gradient(135deg, rgba(255, 150, 50, 0.5), rgba(255, 100, 100, 0.5));
-            transform: translateY(-2px);
-        }
-
-        .layout-designer-section {
-            margin-bottom: 80px;
-            padding: 20px;
-        }
-
-        .layout-designer-section .section-title {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 16px;
-        }
-
+        /* Layout Designer Controls */
         .layout-controls {
             display: flex;
             gap: 12px;
@@ -3070,72 +3116,10 @@
             background: rgba(100, 200, 150, 0.5);
         }
 
-        .layout-container {
-            display: flex;
-            gap: 20px;
-            margin-top: 20px;
-            min-height: 600px;
-        }
-
-        .layout-sidebar {
-            width: 280px;
-            flex-shrink: 0;
-            background: rgba(0, 0, 0, 0.3);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 12px;
-            padding: 16px;
-            max-height: 700px;
-            overflow-y: auto;
-        }
-
-        .layout-sidebar h4 {
-            color: #fff;
-            margin: 0 0 8px 0;
-            font-size: 1rem;
-        }
-
         .layout-sidebar-hint {
             color: rgba(255, 255, 255, 0.5);
             font-size: 0.8rem;
-            margin: 0 0 16px 0;
-        }
-
-        .layout-components-list {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
-
-        .layout-component-item {
-            background: rgba(255, 255, 255, 0.1);
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            border-radius: 8px;
-            padding: 12px;
-            cursor: grab;
-            transition: all 0.3s ease;
-            user-select: none;
-        }
-
-        .layout-component-item:hover {
-            background: rgba(255, 255, 255, 0.2);
-            border-color: rgba(100, 200, 255, 0.4);
-        }
-
-        .layout-component-item:active {
-            cursor: grabbing;
-        }
-
-        .layout-component-item .item-name {
-            color: #fff;
-            font-size: 0.9rem;
-            font-weight: 500;
-        }
-
-        .layout-component-item .item-type {
-            color: rgba(255, 255, 255, 0.5);
-            font-size: 0.75rem;
-            margin-top: 4px;
+            margin: 0 0 12px 0;
         }
 
         .layout-canvas-wrapper {
@@ -3343,23 +3327,51 @@
                 <span class="toggle-icon">➕</span>
                 <span class="toggle-text">Create Component</span>
             </button>
-            <button class="layout-designer-toggle" id="layoutDesignerToggle">
-                <span class="toggle-icon">🎯</span>
-                <span class="toggle-text">Layout Designer</span>
-            </button>
         </div>
     </header>
 
-    <!-- MY PROJECTS SECTION -->
+    <!-- MY PROJECTS SECTION (Combined with Layout Designer) -->
     <section class="section projects-section" id="projectsSection" data-section="projects">
         <h2 class="section-title">
             My Custom Projects
+            <div class="layout-controls">
+                <label class="layout-upload-btn">
+                    <span>📷 Upload Background</span>
+                    <input type="file" id="bgImageUpload" accept="image/*" style="display: none;">
+                </label>
+                <button class="layout-btn" id="clearBgBtn">🗑️ Clear BG</button>
+                <button class="layout-btn" id="saveLayoutBtn">💾 Save</button>
+                <button class="layout-btn layout-btn-primary" id="exportLayoutBtn">📤 Export CSS</button>
+            </div>
         </h2>
-        <div class="projects-empty" id="projectsEmpty">
-            <div class="projects-empty-icon">📦</div>
-            <p>No projects yet. Click "Edit" on any component to create your custom version!</p>
+
+        <div class="projects-layout-container">
+            <!-- Projects List (Left Side) -->
+            <div class="projects-list-panel">
+                <h4>Saved Components</h4>
+                <p class="layout-sidebar-hint">Drag to canvas to position</p>
+                <div class="projects-empty" id="projectsEmpty">
+                    <div class="projects-empty-icon">📦</div>
+                    <p>No projects yet. Edit any component to save it here!</p>
+                </div>
+                <div class="projects-grid-vertical" id="projectsGrid"></div>
+            </div>
+
+            <!-- Canvas (Right Side) -->
+            <div class="layout-canvas-wrapper">
+                <div class="layout-canvas" id="layoutCanvas">
+                    <div class="layout-canvas-placeholder" id="canvasPlaceholder">
+                        <div class="placeholder-icon">🎯</div>
+                        <p>Position your components here</p>
+                        <p class="placeholder-hint">Upload a background image, then drag components from the left</p>
+                    </div>
+                </div>
+                <div class="layout-canvas-info">
+                    <span id="canvasSize">Canvas: 1920 × 1080</span>
+                    <span id="selectedComponent">No component selected</span>
+                </div>
+            </div>
         </div>
-        <div class="projects-grid" id="projectsGrid"></div>
     </section>
 
     <!-- CUSTOM COMPONENTS SECTION -->
@@ -3372,48 +3384,6 @@
             <p>No custom components yet. Click "Create Component" to build your own reusable component!</p>
         </div>
         <div class="projects-grid" id="customComponentsGrid"></div>
-    </section>
-
-    <!-- LAYOUT DESIGNER SECTION -->
-    <section class="section layout-designer-section" id="layoutDesignerSection" style="display: none;">
-        <h2 class="section-title">
-            Layout Designer
-            <div class="layout-controls">
-                <label class="layout-upload-btn">
-                    <span>📷 Upload Background</span>
-                    <input type="file" id="bgImageUpload" accept="image/*" style="display: none;">
-                </label>
-                <button class="layout-btn" id="clearBgBtn">🗑️ Clear Background</button>
-                <button class="layout-btn" id="saveLayoutBtn">💾 Save Layout</button>
-                <button class="layout-btn layout-btn-primary" id="exportLayoutBtn">📤 Export CSS</button>
-            </div>
-        </h2>
-
-        <div class="layout-container">
-            <!-- Projects Sidebar -->
-            <div class="layout-sidebar">
-                <h4>Available Components</h4>
-                <p class="layout-sidebar-hint">Drag components to the canvas</p>
-                <div class="layout-components-list" id="layoutComponentsList">
-                    <!-- Populated by JavaScript -->
-                </div>
-            </div>
-
-            <!-- Canvas Area -->
-            <div class="layout-canvas-wrapper">
-                <div class="layout-canvas" id="layoutCanvas">
-                    <div class="layout-canvas-placeholder" id="canvasPlaceholder">
-                        <div class="placeholder-icon">🖼️</div>
-                        <p>Upload a background image to get started</p>
-                        <p class="placeholder-hint">Then drag components from the sidebar to position them</p>
-                    </div>
-                </div>
-                <div class="layout-canvas-info">
-                    <span id="canvasSize">Canvas: 1920 × 1080</span>
-                    <span id="selectedComponent">No component selected</span>
-                </div>
-            </div>
-        </div>
     </section>
 
     <!-- GLASSMORPHIC COMPONENTS SHOWCASE -->
@@ -5704,26 +5674,25 @@
                 projectsGrid.style.display = 'none';
             } else {
                 projectsEmpty.style.display = 'none';
-                projectsGrid.style.display = 'grid';
+                projectsGrid.style.display = 'flex';
                 projectsGrid.innerHTML = projects.map((project, index) => `
-                    <div class="component-card project-card">
+                    <div class="component-card project-card" draggable="true" data-project-drag-index="${index}">
                         <div class="project-actions">
                             <button class="project-delete" data-index="${index}">×</button>
                         </div>
-                        <div class="component-preview with-bg">
+                        <div class="component-preview project-preview with-bg">
                             ${project.html}
                         </div>
-                        <div class="component-info">
+                        <div class="component-info project-info">
                             <span class="component-name">${project.name}</span>
-                            <button class="edit-btn" data-project-edit-index="${index}">Edit</button>
-                            <button class="copy-btn" data-project-index="${index}">Copy Code</button>
                         </div>
                     </div>
                 `).join('');
 
                 // Add delete listeners
                 document.querySelectorAll('.project-delete').forEach(btn => {
-                    btn.addEventListener('click', async () => {
+                    btn.addEventListener('click', async (e) => {
+                        e.stopPropagation();
                         const index = parseInt(btn.dataset.index);
                         if (confirm('Delete this project?')) {
                             const projectId = projects[index].id;
@@ -5736,24 +5705,14 @@
                     });
                 });
 
-                // Add copy listeners for projects
-                document.querySelectorAll('[data-project-index]').forEach(btn => {
-                    btn.addEventListener('click', () => {
-                        const index = parseInt(btn.dataset.projectIndex);
-                        const project = projects[index];
-                        const fullCode = `<!-- HTML -->\n${project.html}\n\n<!-- CSS -->\n${project.css}`;
-
-                        if (copyToClipboard(fullCode)) {
-                            showToast('Project code copied to clipboard!');
-                        }
+                // Add drag listeners for projects
+                document.querySelectorAll('[data-project-drag-index]').forEach(card => {
+                    card.addEventListener('dragstart', (e) => {
+                        e.dataTransfer.setData('text/plain', card.dataset.projectDragIndex);
+                        card.style.opacity = '0.5';
                     });
-                });
-
-                // Add edit listeners for projects
-                document.querySelectorAll('[data-project-edit-index]').forEach(btn => {
-                    btn.addEventListener('click', () => {
-                        const index = parseInt(btn.dataset.projectEditIndex);
-                        openProjectEditor(index);
+                    card.addEventListener('dragend', (e) => {
+                        card.style.opacity = '1';
                     });
                 });
             }
@@ -6866,14 +6825,11 @@
         renderProjects();
 
         // ==========================================
-        // LAYOUT DESIGNER FUNCTIONALITY
+        // LAYOUT DESIGNER FUNCTIONALITY (Combined with Projects)
         // ==========================================
 
-        const layoutDesignerToggle = document.getElementById('layoutDesignerToggle');
-        const layoutDesignerSection = document.getElementById('layoutDesignerSection');
         const layoutCanvas = document.getElementById('layoutCanvas');
         const canvasPlaceholder = document.getElementById('canvasPlaceholder');
-        const layoutComponentsList = document.getElementById('layoutComponentsList');
         const bgImageUpload = document.getElementById('bgImageUpload');
         const clearBgBtn = document.getElementById('clearBgBtn');
         const saveLayoutBtn = document.getElementById('saveLayoutBtn');
@@ -6893,51 +6849,22 @@
         let currentBgImage = null;
         let canvasDimensions = { width: 1920, height: 1080 };
 
-        // Toggle Layout Designer Section
-        layoutDesignerToggle.addEventListener('click', () => {
-            const isVisible = layoutDesignerSection.style.display !== 'none';
-            layoutDesignerSection.style.display = isVisible ? 'none' : 'block';
-            if (!isVisible) {
-                populateLayoutComponents();
-                loadLayoutFromStorage();
-            }
+        // Load layout when projects section becomes visible
+        const originalProjectsToggleHandler = projectsToggle.onclick;
+        projectsToggle.addEventListener('click', () => {
+            setTimeout(() => {
+                if (projectsSection.classList.contains('show')) {
+                    loadLayoutFromStorage();
+                }
+            }, 100);
         });
 
-        // Populate sidebar with available projects
-        function populateLayoutComponents() {
-            layoutComponentsList.innerHTML = '';
-
-            if (projects.length === 0) {
-                layoutComponentsList.innerHTML = '<p style="color: rgba(255,255,255,0.5); font-size: 0.85rem;">No projects yet. Save some components first!</p>';
-                return;
+        // Initialize layout on page load if projects section is visible
+        setTimeout(() => {
+            if (projectsSection.classList.contains('show')) {
+                loadLayoutFromStorage();
             }
-
-            projects.forEach((project, index) => {
-                const item = document.createElement('div');
-                item.className = 'layout-component-item';
-                item.draggable = true;
-                item.dataset.projectIndex = index;
-                item.innerHTML = `
-                    <div class="item-name">${project.name}</div>
-                    <div class="item-type">${project.componentType}</div>
-                `;
-
-                item.addEventListener('dragstart', handleDragStart);
-                item.addEventListener('dragend', handleDragEnd);
-
-                layoutComponentsList.appendChild(item);
-            });
-        }
-
-        // Drag and Drop handlers
-        function handleDragStart(e) {
-            e.dataTransfer.setData('text/plain', e.target.dataset.projectIndex);
-            e.target.style.opacity = '0.5';
-        }
-
-        function handleDragEnd(e) {
-            e.target.style.opacity = '1';
-        }
+        }, 500);
 
         layoutCanvas.addEventListener('dragover', (e) => {
             e.preventDefault();

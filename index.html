@@ -3393,12 +3393,12 @@
         const SUPABASE_URL = 'https://zbrmasrvczxjcgiwkcaj.supabase.co';
         const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inpicm1hc3J2Y3p4amNnaXdrY2FqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzU0Mjk3NjgsImV4cCI6MjA1MTAwNTc2OH0.rIKJ55NVJlRrcvcQjhoC8Q_BmPscDEY';
 
-        let supabase;
+        let supabaseClient;
         let userId;
 
         // Initialize Supabase
         try {
-            supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+            supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
             // Generate or retrieve user ID (browser fingerprint for anonymous users)
             userId = localStorage.getItem('userId');
@@ -3409,18 +3409,18 @@
         } catch (error) {
             console.error('Supabase initialization error:', error);
             // Fallback to localStorage if Supabase fails
-            supabase = null;
+            supabaseClient = null;
         }
 
         // ===== SUPABASE HELPER FUNCTIONS =====
 
         async function loadProjectsFromDB() {
-            if (!supabase) {
+            if (!supabaseClient) {
                 return JSON.parse(localStorage.getItem('glassProjects') || '[]');
             }
 
             try {
-                const { data, error } = await supabase
+                const { data, error } = await supabaseClient
                     .from('projects')
                     .select('*')
                     .eq('user_id', userId)
@@ -3435,7 +3435,7 @@
         }
 
         async function saveProjectToDB(project) {
-            if (!supabase) {
+            if (!supabaseClient) {
                 const projects = JSON.parse(localStorage.getItem('glassProjects') || '[]');
                 projects.push(project);
                 localStorage.setItem('glassProjects', JSON.stringify(projects));
@@ -3443,7 +3443,7 @@
             }
 
             try {
-                const { data, error } = await supabase
+                const { data, error } = await supabaseClient
                     .from('projects')
                     .insert([{ ...project, user_id: userId }])
                     .select();
@@ -3460,7 +3460,7 @@
         }
 
         async function updateProjectInDB(index, updatedProject) {
-            if (!supabase) {
+            if (!supabaseClient) {
                 const projects = JSON.parse(localStorage.getItem('glassProjects') || '[]');
                 projects[index] = updatedProject;
                 localStorage.setItem('glassProjects', JSON.stringify(projects));
@@ -3484,7 +3484,7 @@
         }
 
         async function deleteProjectFromDB(projectId) {
-            if (!supabase) {
+            if (!supabaseClient) {
                 const projects = JSON.parse(localStorage.getItem('glassProjects') || '[]');
                 const filtered = projects.filter(p => p.id !== projectId);
                 localStorage.setItem('glassProjects', JSON.stringify(filtered));
@@ -3492,7 +3492,7 @@
             }
 
             try {
-                const { error } = await supabase
+                const { error } = await supabaseClient
                     .from('projects')
                     .delete()
                     .eq('id', projectId)
@@ -3505,12 +3505,12 @@
         }
 
         async function loadCustomComponentsFromDB() {
-            if (!supabase) {
+            if (!supabaseClient) {
                 return JSON.parse(localStorage.getItem('customComponents') || '[]');
             }
 
             try {
-                const { data, error } = await supabase
+                const { data, error } = await supabaseClient
                     .from('custom_components')
                     .select('*')
                     .eq('user_id', userId)
@@ -3525,7 +3525,7 @@
         }
 
         async function saveCustomComponentToDB(component) {
-            if (!supabase) {
+            if (!supabaseClient) {
                 const components = JSON.parse(localStorage.getItem('customComponents') || '[]');
                 components.push(component);
                 localStorage.setItem('customComponents', JSON.stringify(components));
@@ -3533,7 +3533,7 @@
             }
 
             try {
-                const { data, error } = await supabase
+                const { data, error } = await supabaseClient
                     .from('custom_components')
                     .insert([{ ...component, user_id: userId }])
                     .select();
@@ -3550,7 +3550,7 @@
         }
 
         async function deleteCustomComponentFromDB(componentId) {
-            if (!supabase) {
+            if (!supabaseClient) {
                 const components = JSON.parse(localStorage.getItem('customComponents') || '[]');
                 const filtered = components.filter(c => c.id !== componentId);
                 localStorage.setItem('customComponents', JSON.stringify(filtered));
@@ -3558,7 +3558,7 @@
             }
 
             try {
-                const { error } = await supabase
+                const { error } = await supabaseClient
                     .from('custom_components')
                     .delete()
                     .eq('id', componentId)

@@ -2989,6 +2989,341 @@
         .project-delete:hover {
             background: rgba(255, 100, 100, 0.5);
         }
+
+        /* Layout Designer */
+        .layout-designer-toggle {
+            background: linear-gradient(135deg, rgba(255, 150, 50, 0.3), rgba(255, 100, 100, 0.3));
+            border: 1px solid rgba(255, 150, 50, 0.4);
+            color: #fff;
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .layout-designer-toggle:hover {
+            background: linear-gradient(135deg, rgba(255, 150, 50, 0.5), rgba(255, 100, 100, 0.5));
+            transform: translateY(-2px);
+        }
+
+        .layout-designer-section {
+            margin-bottom: 80px;
+            padding: 20px;
+        }
+
+        .layout-designer-section .section-title {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+
+        .layout-controls {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .layout-upload-btn {
+            background: rgba(100, 200, 255, 0.2);
+            border: 1px solid rgba(100, 200, 255, 0.4);
+            color: #fff;
+            padding: 8px 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+        }
+
+        .layout-upload-btn:hover {
+            background: rgba(100, 200, 255, 0.4);
+        }
+
+        .layout-btn {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: #fff;
+            padding: 8px 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+
+        .layout-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .layout-btn-primary {
+            background: rgba(100, 200, 150, 0.3);
+            border-color: rgba(100, 200, 150, 0.5);
+        }
+
+        .layout-btn-primary:hover {
+            background: rgba(100, 200, 150, 0.5);
+        }
+
+        .layout-container {
+            display: flex;
+            gap: 20px;
+            margin-top: 20px;
+            min-height: 600px;
+        }
+
+        .layout-sidebar {
+            width: 280px;
+            flex-shrink: 0;
+            background: rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 16px;
+            max-height: 700px;
+            overflow-y: auto;
+        }
+
+        .layout-sidebar h4 {
+            color: #fff;
+            margin: 0 0 8px 0;
+            font-size: 1rem;
+        }
+
+        .layout-sidebar-hint {
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 0.8rem;
+            margin: 0 0 16px 0;
+        }
+
+        .layout-components-list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .layout-component-item {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 8px;
+            padding: 12px;
+            cursor: grab;
+            transition: all 0.3s ease;
+            user-select: none;
+        }
+
+        .layout-component-item:hover {
+            background: rgba(255, 255, 255, 0.2);
+            border-color: rgba(100, 200, 255, 0.4);
+        }
+
+        .layout-component-item:active {
+            cursor: grabbing;
+        }
+
+        .layout-component-item .item-name {
+            color: #fff;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        .layout-component-item .item-type {
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 0.75rem;
+            margin-top: 4px;
+        }
+
+        .layout-canvas-wrapper {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .layout-canvas {
+            flex: 1;
+            background: rgba(0, 0, 0, 0.4);
+            border: 2px dashed rgba(255, 255, 255, 0.2);
+            border-radius: 12px;
+            position: relative;
+            overflow: hidden;
+            min-height: 500px;
+            background-size: contain;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+
+        .layout-canvas.has-bg {
+            border-style: solid;
+            border-color: rgba(100, 200, 255, 0.3);
+        }
+
+        .layout-canvas-placeholder {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            color: rgba(255, 255, 255, 0.4);
+        }
+
+        .layout-canvas-placeholder .placeholder-icon {
+            font-size: 4rem;
+            margin-bottom: 16px;
+        }
+
+        .layout-canvas-placeholder p {
+            margin: 8px 0;
+        }
+
+        .layout-canvas-placeholder .placeholder-hint {
+            font-size: 0.85rem;
+            color: rgba(255, 255, 255, 0.3);
+        }
+
+        .layout-canvas-info {
+            display: flex;
+            justify-content: space-between;
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 0.85rem;
+            padding: 0 8px;
+        }
+
+        .canvas-component {
+            position: absolute;
+            cursor: move;
+            border: 2px solid transparent;
+            border-radius: 8px;
+            transition: border-color 0.2s ease;
+            z-index: 10;
+        }
+
+        .canvas-component:hover {
+            border-color: rgba(100, 200, 255, 0.5);
+        }
+
+        .canvas-component.selected {
+            border-color: rgba(100, 255, 150, 0.8);
+            box-shadow: 0 0 20px rgba(100, 255, 150, 0.3);
+        }
+
+        .canvas-component .component-position {
+            position: absolute;
+            bottom: -24px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0, 0, 0, 0.8);
+            color: #fff;
+            font-size: 0.7rem;
+            padding: 2px 8px;
+            border-radius: 4px;
+            white-space: nowrap;
+            opacity: 0;
+            transition: opacity 0.2s ease;
+        }
+
+        .canvas-component:hover .component-position,
+        .canvas-component.selected .component-position {
+            opacity: 1;
+        }
+
+        .canvas-component .delete-from-canvas {
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            width: 24px;
+            height: 24px;
+            background: rgba(255, 100, 100, 0.9);
+            border: none;
+            border-radius: 50%;
+            color: #fff;
+            font-size: 14px;
+            cursor: pointer;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 20;
+        }
+
+        .canvas-component:hover .delete-from-canvas,
+        .canvas-component.selected .delete-from-canvas {
+            display: flex;
+        }
+
+        /* Export Modal */
+        .export-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(10px);
+            z-index: 10000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .export-modal.show {
+            display: flex;
+        }
+
+        .export-content {
+            background: rgba(30, 40, 50, 0.95);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            padding: 24px;
+            max-width: 800px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+
+        .export-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .export-header h3 {
+            color: #fff;
+            margin: 0;
+        }
+
+        .export-close {
+            background: none;
+            border: none;
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 24px;
+            cursor: pointer;
+        }
+
+        .export-code {
+            background: rgba(0, 0, 0, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            padding: 16px;
+            font-family: monospace;
+            font-size: 0.85rem;
+            color: #5ef38c;
+            white-space: pre-wrap;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+
+        .export-actions {
+            display: flex;
+            gap: 12px;
+            margin-top: 20px;
+            justify-content: flex-end;
+        }
     </style>
 </head>
 <body>
@@ -3007,6 +3342,10 @@
             <button class="create-component-toggle" id="createComponentToggle">
                 <span class="toggle-icon">➕</span>
                 <span class="toggle-text">Create Component</span>
+            </button>
+            <button class="layout-designer-toggle" id="layoutDesignerToggle">
+                <span class="toggle-icon">🎯</span>
+                <span class="toggle-text">Layout Designer</span>
             </button>
         </div>
     </header>
@@ -3033,6 +3372,48 @@
             <p>No custom components yet. Click "Create Component" to build your own reusable component!</p>
         </div>
         <div class="projects-grid" id="customComponentsGrid"></div>
+    </section>
+
+    <!-- LAYOUT DESIGNER SECTION -->
+    <section class="section layout-designer-section" id="layoutDesignerSection" style="display: none;">
+        <h2 class="section-title">
+            Layout Designer
+            <div class="layout-controls">
+                <label class="layout-upload-btn">
+                    <span>📷 Upload Background</span>
+                    <input type="file" id="bgImageUpload" accept="image/*" style="display: none;">
+                </label>
+                <button class="layout-btn" id="clearBgBtn">🗑️ Clear Background</button>
+                <button class="layout-btn" id="saveLayoutBtn">💾 Save Layout</button>
+                <button class="layout-btn layout-btn-primary" id="exportLayoutBtn">📤 Export CSS</button>
+            </div>
+        </h2>
+
+        <div class="layout-container">
+            <!-- Projects Sidebar -->
+            <div class="layout-sidebar">
+                <h4>Available Components</h4>
+                <p class="layout-sidebar-hint">Drag components to the canvas</p>
+                <div class="layout-components-list" id="layoutComponentsList">
+                    <!-- Populated by JavaScript -->
+                </div>
+            </div>
+
+            <!-- Canvas Area -->
+            <div class="layout-canvas-wrapper">
+                <div class="layout-canvas" id="layoutCanvas">
+                    <div class="layout-canvas-placeholder" id="canvasPlaceholder">
+                        <div class="placeholder-icon">🖼️</div>
+                        <p>Upload a background image to get started</p>
+                        <p class="placeholder-hint">Then drag components from the sidebar to position them</p>
+                    </div>
+                </div>
+                <div class="layout-canvas-info">
+                    <span id="canvasSize">Canvas: 1920 × 1080</span>
+                    <span id="selectedComponent">No component selected</span>
+                </div>
+            </div>
+        </div>
     </section>
 
     <!-- GLASSMORPHIC COMPONENTS SHOWCASE -->
@@ -3649,6 +4030,21 @@
             <div class="editor-footer">
                 <button class="editor-btn" id="editorCancel">Cancel</button>
                 <button class="editor-btn editor-btn-primary" id="editorSave">Save to Projects</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Export Layout Modal -->
+    <div class="export-modal" id="exportModal">
+        <div class="export-content">
+            <div class="export-header">
+                <h3>Export Layout CSS</h3>
+                <button class="export-close" id="exportClose">&times;</button>
+            </div>
+            <div class="export-code" id="exportCode"></div>
+            <div class="export-actions">
+                <button class="layout-btn" id="copyExportBtn">📋 Copy to Clipboard</button>
+                <button class="layout-btn layout-btn-primary" id="downloadExportBtn">📥 Download CSS</button>
             </div>
         </div>
     </div>
@@ -6468,6 +6864,435 @@
 
         // Initialize projects on load
         renderProjects();
+
+        // ==========================================
+        // LAYOUT DESIGNER FUNCTIONALITY
+        // ==========================================
+
+        const layoutDesignerToggle = document.getElementById('layoutDesignerToggle');
+        const layoutDesignerSection = document.getElementById('layoutDesignerSection');
+        const layoutCanvas = document.getElementById('layoutCanvas');
+        const canvasPlaceholder = document.getElementById('canvasPlaceholder');
+        const layoutComponentsList = document.getElementById('layoutComponentsList');
+        const bgImageUpload = document.getElementById('bgImageUpload');
+        const clearBgBtn = document.getElementById('clearBgBtn');
+        const saveLayoutBtn = document.getElementById('saveLayoutBtn');
+        const exportLayoutBtn = document.getElementById('exportLayoutBtn');
+        const exportModal = document.getElementById('exportModal');
+        const exportClose = document.getElementById('exportClose');
+        const exportCode = document.getElementById('exportCode');
+        const copyExportBtn = document.getElementById('copyExportBtn');
+        const downloadExportBtn = document.getElementById('downloadExportBtn');
+        const canvasSizeDisplay = document.getElementById('canvasSize');
+        const selectedComponentDisplay = document.getElementById('selectedComponent');
+
+        let canvasComponents = [];
+        let selectedCanvasComponent = null;
+        let isDragging = false;
+        let dragOffset = { x: 0, y: 0 };
+        let currentBgImage = null;
+        let canvasDimensions = { width: 1920, height: 1080 };
+
+        // Toggle Layout Designer Section
+        layoutDesignerToggle.addEventListener('click', () => {
+            const isVisible = layoutDesignerSection.style.display !== 'none';
+            layoutDesignerSection.style.display = isVisible ? 'none' : 'block';
+            if (!isVisible) {
+                populateLayoutComponents();
+                loadLayoutFromStorage();
+            }
+        });
+
+        // Populate sidebar with available projects
+        function populateLayoutComponents() {
+            layoutComponentsList.innerHTML = '';
+
+            if (projects.length === 0) {
+                layoutComponentsList.innerHTML = '<p style="color: rgba(255,255,255,0.5); font-size: 0.85rem;">No projects yet. Save some components first!</p>';
+                return;
+            }
+
+            projects.forEach((project, index) => {
+                const item = document.createElement('div');
+                item.className = 'layout-component-item';
+                item.draggable = true;
+                item.dataset.projectIndex = index;
+                item.innerHTML = `
+                    <div class="item-name">${project.name}</div>
+                    <div class="item-type">${project.componentType}</div>
+                `;
+
+                item.addEventListener('dragstart', handleDragStart);
+                item.addEventListener('dragend', handleDragEnd);
+
+                layoutComponentsList.appendChild(item);
+            });
+        }
+
+        // Drag and Drop handlers
+        function handleDragStart(e) {
+            e.dataTransfer.setData('text/plain', e.target.dataset.projectIndex);
+            e.target.style.opacity = '0.5';
+        }
+
+        function handleDragEnd(e) {
+            e.target.style.opacity = '1';
+        }
+
+        layoutCanvas.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            layoutCanvas.style.borderColor = 'rgba(100, 255, 150, 0.5)';
+        });
+
+        layoutCanvas.addEventListener('dragleave', () => {
+            layoutCanvas.style.borderColor = currentBgImage ? 'rgba(100, 200, 255, 0.3)' : 'rgba(255, 255, 255, 0.2)';
+        });
+
+        layoutCanvas.addEventListener('drop', (e) => {
+            e.preventDefault();
+            layoutCanvas.style.borderColor = currentBgImage ? 'rgba(100, 200, 255, 0.3)' : 'rgba(255, 255, 255, 0.2)';
+
+            const projectIndex = e.dataTransfer.getData('text/plain');
+            if (projectIndex === '') return;
+
+            const project = projects[parseInt(projectIndex)];
+            if (!project) return;
+
+            const rect = layoutCanvas.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+
+            addComponentToCanvas(project, x, y);
+        });
+
+        // Add component to canvas
+        function addComponentToCanvas(project, x, y) {
+            const componentId = Date.now();
+            const componentData = {
+                id: componentId,
+                projectId: project.id || projects.indexOf(project),
+                name: project.name,
+                html: project.html,
+                x: x,
+                y: y
+            };
+
+            canvasComponents.push(componentData);
+            renderCanvasComponent(componentData);
+            canvasPlaceholder.style.display = 'none';
+        }
+
+        // Render a component on the canvas
+        function renderCanvasComponent(componentData) {
+            const wrapper = document.createElement('div');
+            wrapper.className = 'canvas-component';
+            wrapper.dataset.componentId = componentData.id;
+            wrapper.style.left = componentData.x + 'px';
+            wrapper.style.top = componentData.y + 'px';
+            wrapper.innerHTML = `
+                ${componentData.html}
+                <div class="component-position">X: ${Math.round(componentData.x)} Y: ${Math.round(componentData.y)}</div>
+                <button class="delete-from-canvas">&times;</button>
+            `;
+
+            // Make draggable within canvas
+            wrapper.addEventListener('mousedown', startDrag);
+            wrapper.addEventListener('click', (e) => {
+                if (e.target.classList.contains('delete-from-canvas')) {
+                    removeFromCanvas(componentData.id);
+                } else {
+                    selectCanvasComponent(componentData.id);
+                }
+            });
+
+            layoutCanvas.appendChild(wrapper);
+        }
+
+        // Start dragging a canvas component
+        function startDrag(e) {
+            if (e.target.classList.contains('delete-from-canvas')) return;
+
+            const wrapper = e.currentTarget;
+            const componentId = parseInt(wrapper.dataset.componentId);
+            selectCanvasComponent(componentId);
+
+            isDragging = true;
+            const rect = wrapper.getBoundingClientRect();
+            dragOffset.x = e.clientX - rect.left;
+            dragOffset.y = e.clientY - rect.top;
+
+            document.addEventListener('mousemove', drag);
+            document.addEventListener('mouseup', stopDrag);
+        }
+
+        function drag(e) {
+            if (!isDragging || !selectedCanvasComponent) return;
+
+            const canvasRect = layoutCanvas.getBoundingClientRect();
+            let newX = e.clientX - canvasRect.left - dragOffset.x;
+            let newY = e.clientY - canvasRect.top - dragOffset.y;
+
+            // Constrain to canvas bounds
+            newX = Math.max(0, Math.min(newX, canvasRect.width - 50));
+            newY = Math.max(0, Math.min(newY, canvasRect.height - 50));
+
+            const wrapper = document.querySelector(`[data-component-id="${selectedCanvasComponent}"]`);
+            if (wrapper) {
+                wrapper.style.left = newX + 'px';
+                wrapper.style.top = newY + 'px';
+
+                // Update position display
+                const posDisplay = wrapper.querySelector('.component-position');
+                if (posDisplay) {
+                    posDisplay.textContent = `X: ${Math.round(newX)} Y: ${Math.round(newY)}`;
+                }
+
+                // Update data
+                const componentData = canvasComponents.find(c => c.id === selectedCanvasComponent);
+                if (componentData) {
+                    componentData.x = newX;
+                    componentData.y = newY;
+                }
+            }
+        }
+
+        function stopDrag() {
+            isDragging = false;
+            document.removeEventListener('mousemove', drag);
+            document.removeEventListener('mouseup', stopDrag);
+            saveLayoutToStorage();
+        }
+
+        // Select a canvas component
+        function selectCanvasComponent(componentId) {
+            document.querySelectorAll('.canvas-component').forEach(c => c.classList.remove('selected'));
+            const wrapper = document.querySelector(`[data-component-id="${componentId}"]`);
+            if (wrapper) {
+                wrapper.classList.add('selected');
+                selectedCanvasComponent = componentId;
+                const componentData = canvasComponents.find(c => c.id === componentId);
+                if (componentData) {
+                    selectedComponentDisplay.textContent = `Selected: ${componentData.name}`;
+                }
+            }
+        }
+
+        // Remove component from canvas
+        function removeFromCanvas(componentId) {
+            canvasComponents = canvasComponents.filter(c => c.id !== componentId);
+            const wrapper = document.querySelector(`[data-component-id="${componentId}"]`);
+            if (wrapper) wrapper.remove();
+
+            if (canvasComponents.length === 0) {
+                canvasPlaceholder.style.display = 'block';
+            }
+
+            selectedComponentDisplay.textContent = 'No component selected';
+            saveLayoutToStorage();
+        }
+
+        // Background Image Upload
+        bgImageUpload.addEventListener('change', (e) => {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = (event) => {
+                    currentBgImage = event.target.result;
+                    layoutCanvas.style.backgroundImage = `url(${currentBgImage})`;
+                    layoutCanvas.classList.add('has-bg');
+                    canvasPlaceholder.style.display = canvasComponents.length > 0 ? 'none' : 'block';
+                    canvasPlaceholder.innerHTML = `
+                        <div class="placeholder-icon">✓</div>
+                        <p>Background loaded!</p>
+                        <p class="placeholder-hint">Now drag components from the sidebar</p>
+                    `;
+
+                    // Get image dimensions
+                    const img = new Image();
+                    img.onload = () => {
+                        canvasDimensions.width = img.width;
+                        canvasDimensions.height = img.height;
+                        canvasSizeDisplay.textContent = `Canvas: ${img.width} × ${img.height}`;
+                    };
+                    img.src = currentBgImage;
+
+                    saveLayoutToStorage();
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+
+        // Clear Background
+        clearBgBtn.addEventListener('click', () => {
+            currentBgImage = null;
+            layoutCanvas.style.backgroundImage = '';
+            layoutCanvas.classList.remove('has-bg');
+            canvasSizeDisplay.textContent = 'Canvas: 1920 × 1080';
+            canvasPlaceholder.innerHTML = `
+                <div class="placeholder-icon">🖼️</div>
+                <p>Upload a background image to get started</p>
+                <p class="placeholder-hint">Then drag components from the sidebar to position them</p>
+            `;
+            if (canvasComponents.length === 0) {
+                canvasPlaceholder.style.display = 'block';
+            }
+            saveLayoutToStorage();
+        });
+
+        // Save Layout to Storage
+        function saveLayoutToStorage() {
+            const layoutData = {
+                bgImage: currentBgImage,
+                dimensions: canvasDimensions,
+                components: canvasComponents.map(c => ({
+                    id: c.id,
+                    projectId: c.projectId,
+                    name: c.name,
+                    x: c.x,
+                    y: c.y
+                }))
+            };
+            localStorage.setItem('glassLayoutDesigner', JSON.stringify(layoutData));
+        }
+
+        // Load Layout from Storage
+        function loadLayoutFromStorage() {
+            const savedLayout = localStorage.getItem('glassLayoutDesigner');
+            if (savedLayout) {
+                try {
+                    const layoutData = JSON.parse(savedLayout);
+
+                    // Restore background
+                    if (layoutData.bgImage) {
+                        currentBgImage = layoutData.bgImage;
+                        layoutCanvas.style.backgroundImage = `url(${currentBgImage})`;
+                        layoutCanvas.classList.add('has-bg');
+                        canvasPlaceholder.innerHTML = `
+                            <div class="placeholder-icon">✓</div>
+                            <p>Background loaded!</p>
+                            <p class="placeholder-hint">Now drag components from the sidebar</p>
+                        `;
+                    }
+
+                    if (layoutData.dimensions) {
+                        canvasDimensions = layoutData.dimensions;
+                        canvasSizeDisplay.textContent = `Canvas: ${canvasDimensions.width} × ${canvasDimensions.height}`;
+                    }
+
+                    // Restore components
+                    if (layoutData.components && layoutData.components.length > 0) {
+                        layoutData.components.forEach(savedComp => {
+                            // Find the matching project
+                            const project = projects.find((p, i) => p.id === savedComp.projectId || i === savedComp.projectId);
+                            if (project) {
+                                const componentData = {
+                                    id: savedComp.id,
+                                    projectId: savedComp.projectId,
+                                    name: savedComp.name,
+                                    html: project.html,
+                                    x: savedComp.x,
+                                    y: savedComp.y
+                                };
+                                canvasComponents.push(componentData);
+                                renderCanvasComponent(componentData);
+                            }
+                        });
+
+                        if (canvasComponents.length > 0) {
+                            canvasPlaceholder.style.display = 'none';
+                        }
+                    }
+                } catch (e) {
+                    console.error('Error loading layout:', e);
+                }
+            }
+        }
+
+        // Save Layout Button (manual save + toast)
+        saveLayoutBtn.addEventListener('click', () => {
+            saveLayoutToStorage();
+            showToast('Layout saved!');
+        });
+
+        // Export Layout CSS
+        exportLayoutBtn.addEventListener('click', () => {
+            if (canvasComponents.length === 0) {
+                showToast('No components to export');
+                return;
+            }
+
+            let cssCode = `/* Layout Export - Generated by Glassmorphic Components */\n`;
+            cssCode += `/* Canvas Size: ${canvasDimensions.width} x ${canvasDimensions.height} */\n\n`;
+            cssCode += `.layout-container {\n`;
+            cssCode += `    position: relative;\n`;
+            cssCode += `    width: ${canvasDimensions.width}px;\n`;
+            cssCode += `    height: ${canvasDimensions.height}px;\n`;
+            if (currentBgImage) {
+                cssCode += `    /* Background image: use your own image URL */\n`;
+                cssCode += `    background-image: url('your-background.jpg');\n`;
+                cssCode += `    background-size: contain;\n`;
+                cssCode += `    background-position: center;\n`;
+            }
+            cssCode += `}\n\n`;
+
+            canvasComponents.forEach((comp, index) => {
+                const className = comp.name.toLowerCase().replace(/[^a-z0-9]+/g, '-');
+                cssCode += `/* ${comp.name} */\n`;
+                cssCode += `.${className}-wrapper {\n`;
+                cssCode += `    position: absolute;\n`;
+                cssCode += `    left: ${Math.round(comp.x)}px;\n`;
+                cssCode += `    top: ${Math.round(comp.y)}px;\n`;
+                cssCode += `    /* Percentage based (relative to canvas): */\n`;
+                cssCode += `    /* left: ${((comp.x / layoutCanvas.offsetWidth) * 100).toFixed(2)}%; */\n`;
+                cssCode += `    /* top: ${((comp.y / layoutCanvas.offsetHeight) * 100).toFixed(2)}%; */\n`;
+                cssCode += `}\n\n`;
+            });
+
+            exportCode.textContent = cssCode;
+            exportModal.classList.add('show');
+        });
+
+        // Close Export Modal
+        exportClose.addEventListener('click', () => {
+            exportModal.classList.remove('show');
+        });
+
+        exportModal.addEventListener('click', (e) => {
+            if (e.target === exportModal) {
+                exportModal.classList.remove('show');
+            }
+        });
+
+        // Copy Export to Clipboard
+        copyExportBtn.addEventListener('click', async () => {
+            try {
+                await navigator.clipboard.writeText(exportCode.textContent);
+                showToast('CSS copied to clipboard!');
+            } catch (e) {
+                console.error('Copy failed:', e);
+            }
+        });
+
+        // Download Export as CSS file
+        downloadExportBtn.addEventListener('click', () => {
+            const blob = new Blob([exportCode.textContent], { type: 'text/css' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'layout-positions.css';
+            a.click();
+            URL.revokeObjectURL(url);
+            showToast('CSS file downloaded!');
+        });
+
+        // Click outside canvas to deselect
+        layoutCanvas.addEventListener('click', (e) => {
+            if (e.target === layoutCanvas) {
+                document.querySelectorAll('.canvas-component').forEach(c => c.classList.remove('selected'));
+                selectedCanvasComponent = null;
+                selectedComponentDisplay.textContent = 'No component selected';
+            }
+        });
     </script>
 </body>
 </html>

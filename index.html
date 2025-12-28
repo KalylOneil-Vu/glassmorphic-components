@@ -3067,6 +3067,25 @@
             background: rgba(255, 100, 100, 0.5);
         }
 
+        .project-edit {
+            width: 32px;
+            height: 32px;
+            background: rgba(100, 200, 255, 0.3);
+            border: 1px solid rgba(100, 200, 255, 0.4);
+            border-radius: 6px;
+            color: #64c8ff;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            font-size: 14px;
+        }
+
+        .project-edit:hover {
+            background: rgba(100, 200, 255, 0.5);
+        }
+
         /* Layout Designer Controls */
         .layout-controls {
             display: flex;
@@ -3237,6 +3256,106 @@
         .canvas-component:hover .delete-from-canvas,
         .canvas-component.selected .delete-from-canvas {
             display: flex;
+        }
+
+        /* Edit button on canvas */
+        .canvas-component .edit-on-canvas {
+            position: absolute;
+            top: -10px;
+            right: 20px;
+            width: 24px;
+            height: 24px;
+            background: rgba(100, 200, 255, 0.9);
+            border: none;
+            border-radius: 50%;
+            color: #fff;
+            font-size: 12px;
+            cursor: pointer;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 100;
+        }
+
+        .canvas-component:hover .edit-on-canvas,
+        .canvas-component.selected .edit-on-canvas {
+            display: flex;
+        }
+
+        /* Resize handles */
+        .canvas-component .resize-handle {
+            position: absolute;
+            background: rgba(100, 255, 150, 0.8);
+            border: 2px solid rgba(255, 255, 255, 0.9);
+            border-radius: 50%;
+            width: 12px;
+            height: 12px;
+            z-index: 100;
+            display: none;
+        }
+
+        .canvas-component.selected .resize-handle {
+            display: block;
+        }
+
+        .canvas-component .resize-handle.nw {
+            top: -6px;
+            left: -6px;
+            cursor: nw-resize;
+        }
+
+        .canvas-component .resize-handle.ne {
+            top: -6px;
+            right: -6px;
+            cursor: ne-resize;
+        }
+
+        .canvas-component .resize-handle.sw {
+            bottom: -6px;
+            left: -6px;
+            cursor: sw-resize;
+        }
+
+        .canvas-component .resize-handle.se {
+            bottom: -6px;
+            right: -6px;
+            cursor: se-resize;
+        }
+
+        .canvas-component .resize-handle:hover {
+            background: rgba(100, 255, 150, 1);
+            transform: scale(1.2);
+        }
+
+        /* Size display */
+        .canvas-component .component-size {
+            position: absolute;
+            top: -24px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0, 0, 0, 0.8);
+            color: #64ff96;
+            font-size: 0.7rem;
+            padding: 2px 8px;
+            border-radius: 4px;
+            white-space: nowrap;
+            opacity: 0;
+            transition: opacity 0.2s ease;
+        }
+
+        .canvas-component.resizing .component-size {
+            opacity: 1;
+        }
+
+        .canvas-component-content {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        .canvas-component-content > * {
+            max-width: 100%;
+            max-height: 100%;
         }
 
         /* Export Modal */
@@ -5678,7 +5797,8 @@
                 projectsGrid.innerHTML = projects.map((project, index) => `
                     <div class="component-card project-card" draggable="true" data-project-drag-index="${index}">
                         <div class="project-actions">
-                            <button class="project-delete" data-index="${index}">×</button>
+                            <button class="project-edit" data-index="${index}" title="Edit component">✎</button>
+                            <button class="project-delete" data-index="${index}" title="Delete">×</button>
                         </div>
                         <div class="component-preview project-preview with-bg">
                             ${project.html}
@@ -5688,6 +5808,15 @@
                         </div>
                     </div>
                 `).join('');
+
+                // Add edit listeners
+                document.querySelectorAll('.project-edit').forEach(btn => {
+                    btn.addEventListener('click', (e) => {
+                        e.stopPropagation();
+                        const index = parseInt(btn.dataset.index);
+                        openProjectEditor(index);
+                    });
+                });
 
                 // Add delete listeners
                 document.querySelectorAll('.project-delete').forEach(btn => {
@@ -6464,6 +6593,28 @@
 
             updateProjectCount();
             renderProjects();
+
+            // Update any canvas components that use this project
+            if (currentProjectIndex !== null) {
+                const updatedProject = projects[currentProjectIndex];
+                canvasComponents.forEach(comp => {
+                    if (comp.projectId === updatedProject.id ||
+                        comp.projectId === currentProjectIndex) {
+                        comp.html = updatedProject.html;
+                        comp.name = updatedProject.name;
+                        // Re-render this canvas component
+                        const wrapper = document.querySelector(`[data-component-id="${comp.id}"]`);
+                        if (wrapper) {
+                            const content = wrapper.querySelector('.canvas-component-content');
+                            if (content) {
+                                content.innerHTML = updatedProject.html;
+                            }
+                        }
+                    }
+                });
+                saveLayoutToStorage();
+            }
+
             closeEditor();
 
             // Show projects section
@@ -6916,10 +7067,27 @@
             wrapper.dataset.componentId = componentData.id;
             wrapper.style.left = componentData.x + 'px';
             wrapper.style.top = componentData.y + 'px';
+
+            // Apply stored size if available
+            if (componentData.width) {
+                wrapper.style.width = componentData.width + 'px';
+            }
+            if (componentData.height) {
+                wrapper.style.height = componentData.height + 'px';
+            }
+
             wrapper.innerHTML = `
-                ${componentData.html}
+                <div class="canvas-component-content" style="${componentData.width ? 'transform: scale(1); transform-origin: top left;' : ''}">
+                    ${componentData.html}
+                </div>
                 <div class="component-position">X: ${Math.round(componentData.x)} Y: ${Math.round(componentData.y)}</div>
+                <div class="component-size">Size: ${componentData.width || 'auto'} × ${componentData.height || 'auto'}</div>
+                <button class="edit-on-canvas" title="Edit component">✎</button>
                 <button class="delete-from-canvas">&times;</button>
+                <div class="resize-handle nw" data-handle="nw"></div>
+                <div class="resize-handle ne" data-handle="ne"></div>
+                <div class="resize-handle sw" data-handle="sw"></div>
+                <div class="resize-handle se" data-handle="se"></div>
             `;
 
             // Make draggable within canvas
@@ -6927,17 +7095,166 @@
             wrapper.addEventListener('click', (e) => {
                 if (e.target.classList.contains('delete-from-canvas')) {
                     removeFromCanvas(componentData.id);
-                } else {
+                } else if (e.target.classList.contains('edit-on-canvas')) {
+                    editCanvasComponent(componentData.id);
+                } else if (!e.target.classList.contains('resize-handle')) {
                     selectCanvasComponent(componentData.id);
                 }
+            });
+
+            // Add resize handlers
+            wrapper.querySelectorAll('.resize-handle').forEach(handle => {
+                handle.addEventListener('mousedown', (e) => startResize(e, componentData.id, handle.dataset.handle));
             });
 
             layoutCanvas.appendChild(wrapper);
         }
 
+        // Edit canvas component
+        function editCanvasComponent(componentId) {
+            const componentData = canvasComponents.find(c => c.id === componentId);
+            if (!componentData) return;
+
+            // Find the project index
+            const projectIndex = projects.findIndex(p =>
+                (p.id && p.id === componentData.projectId) ||
+                projects.indexOf(p) === componentData.projectId
+            );
+
+            if (projectIndex !== -1) {
+                openProjectEditor(projectIndex);
+            } else {
+                showToast('Cannot edit this component');
+            }
+        }
+
+        // Resize functionality
+        let isResizing = false;
+        let resizeHandle = null;
+        let resizeStartX = 0;
+        let resizeStartY = 0;
+        let resizeStartWidth = 0;
+        let resizeStartHeight = 0;
+        let resizeStartLeft = 0;
+        let resizeStartTop = 0;
+        let resizeComponentId = null;
+
+        function startResize(e, componentId, handle) {
+            e.stopPropagation();
+            e.preventDefault();
+
+            isResizing = true;
+            resizeHandle = handle;
+            resizeComponentId = componentId;
+
+            const wrapper = document.querySelector(`[data-component-id="${componentId}"]`);
+            if (!wrapper) return;
+
+            wrapper.classList.add('resizing');
+
+            const rect = wrapper.getBoundingClientRect();
+            resizeStartX = e.clientX;
+            resizeStartY = e.clientY;
+            resizeStartWidth = rect.width;
+            resizeStartHeight = rect.height;
+            resizeStartLeft = parseInt(wrapper.style.left) || 0;
+            resizeStartTop = parseInt(wrapper.style.top) || 0;
+
+            document.addEventListener('mousemove', resize);
+            document.addEventListener('mouseup', stopResize);
+        }
+
+        function resize(e) {
+            if (!isResizing || !resizeComponentId) return;
+
+            const wrapper = document.querySelector(`[data-component-id="${resizeComponentId}"]`);
+            if (!wrapper) return;
+
+            const deltaX = e.clientX - resizeStartX;
+            const deltaY = e.clientY - resizeStartY;
+
+            let newWidth = resizeStartWidth;
+            let newHeight = resizeStartHeight;
+            let newLeft = resizeStartLeft;
+            let newTop = resizeStartTop;
+
+            // Minimum size
+            const minSize = 50;
+
+            switch (resizeHandle) {
+                case 'se':
+                    newWidth = Math.max(minSize, resizeStartWidth + deltaX);
+                    newHeight = Math.max(minSize, resizeStartHeight + deltaY);
+                    break;
+                case 'sw':
+                    newWidth = Math.max(minSize, resizeStartWidth - deltaX);
+                    newHeight = Math.max(minSize, resizeStartHeight + deltaY);
+                    newLeft = resizeStartLeft + (resizeStartWidth - newWidth);
+                    break;
+                case 'ne':
+                    newWidth = Math.max(minSize, resizeStartWidth + deltaX);
+                    newHeight = Math.max(minSize, resizeStartHeight - deltaY);
+                    newTop = resizeStartTop + (resizeStartHeight - newHeight);
+                    break;
+                case 'nw':
+                    newWidth = Math.max(minSize, resizeStartWidth - deltaX);
+                    newHeight = Math.max(minSize, resizeStartHeight - deltaY);
+                    newLeft = resizeStartLeft + (resizeStartWidth - newWidth);
+                    newTop = resizeStartTop + (resizeStartHeight - newHeight);
+                    break;
+            }
+
+            wrapper.style.width = newWidth + 'px';
+            wrapper.style.height = newHeight + 'px';
+            wrapper.style.left = newLeft + 'px';
+            wrapper.style.top = newTop + 'px';
+
+            // Update size display
+            const sizeDisplay = wrapper.querySelector('.component-size');
+            if (sizeDisplay) {
+                sizeDisplay.textContent = `Size: ${Math.round(newWidth)} × ${Math.round(newHeight)}`;
+            }
+
+            // Update position display
+            const posDisplay = wrapper.querySelector('.component-position');
+            if (posDisplay) {
+                posDisplay.textContent = `X: ${Math.round(newLeft)} Y: ${Math.round(newTop)}`;
+            }
+        }
+
+        function stopResize() {
+            if (!isResizing || !resizeComponentId) return;
+
+            const wrapper = document.querySelector(`[data-component-id="${resizeComponentId}"]`);
+            if (wrapper) {
+                wrapper.classList.remove('resizing');
+
+                // Update component data
+                const componentData = canvasComponents.find(c => c.id === resizeComponentId);
+                if (componentData) {
+                    componentData.width = parseInt(wrapper.style.width);
+                    componentData.height = parseInt(wrapper.style.height);
+                    componentData.x = parseInt(wrapper.style.left);
+                    componentData.y = parseInt(wrapper.style.top);
+                }
+            }
+
+            isResizing = false;
+            resizeHandle = null;
+            resizeComponentId = null;
+
+            document.removeEventListener('mousemove', resize);
+            document.removeEventListener('mouseup', stopResize);
+
+            saveLayoutToStorage();
+        }
+
         // Start dragging a canvas component
         function startDrag(e) {
             if (e.target.classList.contains('delete-from-canvas')) return;
+            if (e.target.classList.contains('edit-on-canvas')) return;
+            if (e.target.classList.contains('resize-handle')) return;
+            if (isResizing) return;
 
             const wrapper = e.currentTarget;
             const componentId = parseInt(wrapper.dataset.componentId);
@@ -7169,9 +7486,21 @@
                 cssCode += `    position: absolute;\n`;
                 cssCode += `    left: ${Math.round(comp.x)}px;\n`;
                 cssCode += `    top: ${Math.round(comp.y)}px;\n`;
+                if (comp.width) {
+                    cssCode += `    width: ${Math.round(comp.width)}px;\n`;
+                }
+                if (comp.height) {
+                    cssCode += `    height: ${Math.round(comp.height)}px;\n`;
+                }
                 cssCode += `    /* Percentage based (relative to canvas): */\n`;
                 cssCode += `    /* left: ${((comp.x / layoutCanvas.offsetWidth) * 100).toFixed(2)}%; */\n`;
                 cssCode += `    /* top: ${((comp.y / layoutCanvas.offsetHeight) * 100).toFixed(2)}%; */\n`;
+                if (comp.width) {
+                    cssCode += `    /* width: ${((comp.width / layoutCanvas.offsetWidth) * 100).toFixed(2)}%; */\n`;
+                }
+                if (comp.height) {
+                    cssCode += `    /* height: ${((comp.height / layoutCanvas.offsetHeight) * 100).toFixed(2)}%; */\n`;
+                }
                 cssCode += `}\n\n`;
             });
 

@@ -6843,9 +6843,41 @@
             const savedComponent = await saveCustomComponentToDB(customComponent);
             customComponents.push(savedComponent);
 
+            // Also save as a project to My Projects library
+            const defaultData = {};
+            builderFields.forEach(field => {
+                if (field.name) {
+                    defaultData[field.name] = field.default || '';
+                }
+            });
+
+            let projectHtml = customComponent.htmlTemplate;
+            builderFields.forEach(field => {
+                if (field.name) {
+                    const regex = new RegExp(`\\{\\{${field.name}\\}\\}`, 'g');
+                    projectHtml = projectHtml.replace(regex, defaultData[field.name] || '');
+                }
+            });
+
+            const project = {
+                componentType: componentId,
+                component_type: componentId,
+                name: componentName,
+                html: projectHtml,
+                css: customComponent.cssTemplate,
+                data: defaultData,
+                createdAt: new Date().toISOString(),
+                created_at: new Date().toISOString()
+            };
+
+            const savedProject = await saveProjectToDB(project);
+            projects.push(savedProject);
+            updateProjectCount();
+            renderProjects();
+
             renderCustomComponents();
             closeBuilderModal();
-            showToast('Custom component created successfully!');
+            showToast('Custom component created and saved to My Projects!');
 
             // Show custom components section
             customComponentsSection.classList.add('show');

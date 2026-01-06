@@ -4232,78 +4232,74 @@
 
         async function loadProjectsFromDB() {
             if (!supabaseClient) {
-                return JSON.parse(localStorage.getItem('glassProjects') || '[]');
+                console.error('Supabase client not initialized. Database connection required.');
+                return [];
             }
 
             try {
                 const { data, error } = await supabaseClient
                     .from('projects')
                     .select('*')
-                    .eq('user_id', userId)
                     .order('created_at', { ascending: false });
 
                 if (error) throw error;
                 return data || [];
             } catch (error) {
                 console.error('Error loading projects:', error);
-                return JSON.parse(localStorage.getItem('glassProjects') || '[]');
+                showToast('Failed to load projects from database');
+                return [];
             }
         }
 
         async function saveProjectToDB(project) {
             if (!supabaseClient) {
-                const projects = JSON.parse(localStorage.getItem('glassProjects') || '[]');
-                projects.push(project);
-                localStorage.setItem('glassProjects', JSON.stringify(projects));
-                return project;
+                console.error('Supabase client not initialized. Database connection required.');
+                showToast('Failed to save project: Database not connected');
+                return null;
             }
 
             try {
                 const { data, error } = await supabaseClient
                     .from('projects')
-                    .insert([{ ...project, user_id: userId }])
+                    .insert([project])
                     .select();
 
                 if (error) throw error;
                 return data[0];
             } catch (error) {
                 console.error('Error saving project:', error);
-                const projects = JSON.parse(localStorage.getItem('glassProjects') || '[]');
-                projects.push(project);
-                localStorage.setItem('glassProjects', JSON.stringify(projects));
-                return project;
+                showToast('Failed to save project to database');
+                return null;
             }
         }
 
         async function updateProjectInDB(index, updatedProject) {
             if (!supabaseClient) {
-                const projects = JSON.parse(localStorage.getItem('glassProjects') || '[]');
-                projects[index] = updatedProject;
-                localStorage.setItem('glassProjects', JSON.stringify(projects));
-                return updatedProject;
+                console.error('Supabase client not initialized. Database connection required.');
+                showToast('Failed to update project: Database not connected');
+                return null;
             }
 
             try {
-                const { data, error} = await supabase
+                const { data, error} = await supabaseClient
                     .from('projects')
                     .update(updatedProject)
                     .eq('id', updatedProject.id)
-                    .eq('user_id', userId)
                     .select();
 
                 if (error) throw error;
                 return data[0];
             } catch (error) {
                 console.error('Error updating project:', error);
-                return updatedProject;
+                showToast('Failed to update project in database');
+                return null;
             }
         }
 
         async function deleteProjectFromDB(projectId) {
             if (!supabaseClient) {
-                const projects = JSON.parse(localStorage.getItem('glassProjects') || '[]');
-                const filtered = projects.filter(p => p.id !== projectId);
-                localStorage.setItem('glassProjects', JSON.stringify(filtered));
+                console.error('Supabase client not initialized. Database connection required.');
+                showToast('Failed to delete project: Database not connected');
                 return;
             }
 
@@ -4311,65 +4307,62 @@
                 const { error } = await supabaseClient
                     .from('projects')
                     .delete()
-                    .eq('id', projectId)
-                    .eq('user_id', userId);
+                    .eq('id', projectId);
 
                 if (error) throw error;
             } catch (error) {
                 console.error('Error deleting project:', error);
+                showToast('Failed to delete project from database');
             }
         }
 
         async function loadCustomComponentsFromDB() {
             if (!supabaseClient) {
-                return JSON.parse(localStorage.getItem('customComponents') || '[]');
+                console.error('Supabase client not initialized. Database connection required.');
+                return [];
             }
 
             try {
                 const { data, error } = await supabaseClient
                     .from('custom_components')
                     .select('*')
-                    .eq('user_id', userId)
                     .order('created_at', { ascending: false });
 
                 if (error) throw error;
                 return data || [];
             } catch (error) {
                 console.error('Error loading custom components:', error);
-                return JSON.parse(localStorage.getItem('customComponents') || '[]');
+                showToast('Failed to load custom components from database');
+                return [];
             }
         }
 
         async function saveCustomComponentToDB(component) {
             if (!supabaseClient) {
-                const components = JSON.parse(localStorage.getItem('customComponents') || '[]');
-                components.push(component);
-                localStorage.setItem('customComponents', JSON.stringify(components));
-                return component;
+                console.error('Supabase client not initialized. Database connection required.');
+                showToast('Failed to save custom component: Database not connected');
+                return null;
             }
 
             try {
                 const { data, error } = await supabaseClient
                     .from('custom_components')
-                    .insert([{ ...component, user_id: userId }])
+                    .insert([component])
                     .select();
 
                 if (error) throw error;
                 return data[0];
             } catch (error) {
                 console.error('Error saving custom component:', error);
-                const components = JSON.parse(localStorage.getItem('customComponents') || '[]');
-                components.push(component);
-                localStorage.setItem('customComponents', JSON.stringify(components));
-                return component;
+                showToast('Failed to save custom component to database');
+                return null;
             }
         }
 
         async function deleteCustomComponentFromDB(componentId) {
             if (!supabaseClient) {
-                const components = JSON.parse(localStorage.getItem('customComponents') || '[]');
-                const filtered = components.filter(c => c.id !== componentId);
-                localStorage.setItem('customComponents', JSON.stringify(filtered));
+                console.error('Supabase client not initialized. Database connection required.');
+                showToast('Failed to delete custom component: Database not connected');
                 return;
             }
 
@@ -4377,12 +4370,12 @@
                 const { error } = await supabaseClient
                     .from('custom_components')
                     .delete()
-                    .eq('id', componentId)
-                    .eq('user_id', userId);
+                    .eq('id', componentId);
 
                 if (error) throw error;
             } catch (error) {
                 console.error('Error deleting custom component:', error);
+                showToast('Failed to delete custom component from database');
             }
         }
 
@@ -5801,6 +5794,7 @@
                             <button class="project-delete" data-index="${index}" title="Delete">×</button>
                         </div>
                         <div class="component-preview project-preview with-bg">
+                            ${project.css ? `<style>${project.css}</style>` : ''}
                             ${project.html}
                         </div>
                         <div class="component-info project-info">
@@ -6464,6 +6458,21 @@
             editorTitle.textContent = `Edit: ${config.name}`;
             console.log('Editor title set');
 
+            // Inject custom CSS if this is a custom component
+            let existingStyle = document.getElementById('editor-custom-style');
+            if (existingStyle) {
+                existingStyle.remove();
+            }
+            if (componentId.startsWith('custom-')) {
+                const customComponent = customComponents.find(c => c.id === componentId);
+                if (customComponent && customComponent.cssTemplate) {
+                    const style = document.createElement('style');
+                    style.id = 'editor-custom-style';
+                    style.textContent = customComponent.cssTemplate;
+                    document.head.appendChild(style);
+                }
+            }
+
             // Render input fields
             editorFields.innerHTML = config.fields.map(field => `
                 <div class="editor-section">
@@ -6510,6 +6519,18 @@
 
             editorTitle.textContent = `Edit Project: ${project.name}`;
 
+            // Inject custom CSS if the project has it
+            let existingStyle = document.getElementById('editor-custom-style');
+            if (existingStyle) {
+                existingStyle.remove();
+            }
+            if (project.css) {
+                const style = document.createElement('style');
+                style.id = 'editor-custom-style';
+                style.textContent = project.css;
+                document.head.appendChild(style);
+            }
+
             // Render input fields with saved data
             editorFields.innerHTML = config.fields.map(field => `
                 <div class="editor-section">
@@ -6547,6 +6568,12 @@
             currentComponent = null;
             currentData = {};
             currentProjectIndex = null;
+
+            // Remove injected custom CSS
+            let existingStyle = document.getElementById('editor-custom-style');
+            if (existingStyle) {
+                existingStyle.remove();
+            }
         }
 
         async function saveProject() {
@@ -6570,8 +6597,11 @@
                     updated_at: new Date().toISOString()
                 };
 
-                await updateProjectInDB(currentProjectIndex, updatedProject);
-                projects[currentProjectIndex] = updatedProject;
+                const result = await updateProjectInDB(currentProjectIndex, updatedProject);
+                if (!result) {
+                    return; // Error already shown by updateProjectInDB
+                }
+                projects[currentProjectIndex] = result;
                 showToast('Project updated successfully!');
             } else {
                 // Create new project
@@ -6587,6 +6617,9 @@
                 };
 
                 const savedProject = await saveProjectToDB(project);
+                if (!savedProject) {
+                    return; // Error already shown by saveProjectToDB
+                }
                 projects.push(savedProject);
                 showToast('Project saved successfully!');
             }
@@ -6601,13 +6634,14 @@
                     if (comp.projectId === updatedProject.id ||
                         comp.projectId === currentProjectIndex) {
                         comp.html = updatedProject.html;
+                        comp.css = updatedProject.css || '';
                         comp.name = updatedProject.name;
                         // Re-render this canvas component
                         const wrapper = document.querySelector(`[data-component-id="${comp.id}"]`);
                         if (wrapper) {
                             const content = wrapper.querySelector('.canvas-component-content');
                             if (content) {
-                                content.innerHTML = updatedProject.html;
+                                content.innerHTML = (updatedProject.css ? `<style>${updatedProject.css}</style>` : '') + updatedProject.html;
                             }
                         }
                     }
@@ -6841,6 +6875,10 @@
             componentCode[componentId] = `<!-- HTML -->\n${customComponent.htmlTemplate}\n\n<!-- CSS -->\n${customComponent.cssTemplate}`;
 
             const savedComponent = await saveCustomComponentToDB(customComponent);
+            if (!savedComponent) {
+                return; // Error already shown by saveCustomComponentToDB
+            }
+
             customComponents.push(savedComponent);
 
             // Also save as a project to My Projects library
@@ -6871,6 +6909,10 @@
             };
 
             const savedProject = await saveProjectToDB(project);
+            if (!savedProject) {
+                return; // Error already shown by saveProjectToDB
+            }
+
             projects.push(savedProject);
             updateProjectCount();
             renderProjects();
@@ -6906,6 +6948,7 @@
                     return `
                         <div class="component-card">
                             <div class="component-preview with-bg">
+                                ${component.cssTemplate ? `<style>${component.cssTemplate}</style>` : ''}
                                 ${previewHtml}
                             </div>
                             <div class="component-info">
@@ -7083,6 +7126,7 @@
                 projectId: project.id || projects.indexOf(project),
                 name: project.name,
                 html: project.html,
+                css: project.css || '',
                 x: x,
                 y: y
             };
@@ -7110,6 +7154,7 @@
 
             wrapper.innerHTML = `
                 <div class="canvas-component-content" style="${componentData.width ? 'transform: scale(1); transform-origin: top left;' : ''}">
+                    ${componentData.css ? `<style>${componentData.css}</style>` : ''}
                     ${componentData.html}
                 </div>
                 <div class="component-position">X: ${Math.round(componentData.x)} Y: ${Math.round(componentData.y)}</div>
@@ -7466,6 +7511,7 @@
                                     projectId: savedComp.projectId,
                                     name: savedComp.name,
                                     html: project.html,
+                                    css: project.css || '',
                                     x: savedComp.x,
                                     y: savedComp.y
                                 };
@@ -7490,53 +7536,75 @@
             showToast('Layout saved!');
         });
 
-        // Export Layout CSS
+        // Export Layout HTML + CSS
         exportLayoutBtn.addEventListener('click', () => {
             if (canvasComponents.length === 0) {
                 showToast('No components to export');
                 return;
             }
 
-            let cssCode = `/* Layout Export - Generated by Glassmorphic Components */\n`;
-            cssCode += `/* Canvas Size: ${canvasDimensions.width} x ${canvasDimensions.height} */\n\n`;
-            cssCode += `.layout-container {\n`;
-            cssCode += `    position: relative;\n`;
-            cssCode += `    width: ${canvasDimensions.width}px;\n`;
-            cssCode += `    height: ${canvasDimensions.height}px;\n`;
-            if (currentBgImage) {
-                cssCode += `    /* Background image: use your own image URL */\n`;
-                cssCode += `    background-image: url('your-background.jpg');\n`;
-                cssCode += `    background-size: contain;\n`;
-                cssCode += `    background-position: center;\n`;
-            }
-            cssCode += `}\n\n`;
+            // Generate HTML
+            let htmlCode = `<!DOCTYPE html>\n<html lang="en">\n<head>\n`;
+            htmlCode += `    <meta charset="UTF-8">\n`;
+            htmlCode += `    <meta name="viewport" content="width=device-width, initial-scale=1.0">\n`;
+            htmlCode += `    <title>Layout Export - Glassmorphic Components</title>\n`;
+            htmlCode += `    <style>\n`;
 
+            // CSS for layout container
+            htmlCode += `        /* Layout Container */\n`;
+            htmlCode += `        .layout-container {\n`;
+            htmlCode += `            position: relative;\n`;
+            htmlCode += `            width: ${canvasDimensions.width}px;\n`;
+            htmlCode += `            height: ${canvasDimensions.height}px;\n`;
+            if (currentBgImage) {
+                htmlCode += `            /* Background image: replace with your own image URL */\n`;
+                htmlCode += `            background-image: url('your-background.jpg');\n`;
+                htmlCode += `            background-size: contain;\n`;
+                htmlCode += `            background-position: center;\n`;
+            }
+            htmlCode += `        }\n\n`;
+
+            // CSS for component positioning
             canvasComponents.forEach((comp, index) => {
                 const className = comp.name.toLowerCase().replace(/[^a-z0-9]+/g, '-');
-                cssCode += `/* ${comp.name} */\n`;
-                cssCode += `.${className}-wrapper {\n`;
-                cssCode += `    position: absolute;\n`;
-                cssCode += `    left: ${Math.round(comp.x)}px;\n`;
-                cssCode += `    top: ${Math.round(comp.y)}px;\n`;
+                htmlCode += `        /* ${comp.name} - Positioning */\n`;
+                htmlCode += `        .${className}-wrapper {\n`;
+                htmlCode += `            position: absolute;\n`;
+                htmlCode += `            left: ${Math.round(comp.x)}px;\n`;
+                htmlCode += `            top: ${Math.round(comp.y)}px;\n`;
                 if (comp.width) {
-                    cssCode += `    width: ${Math.round(comp.width)}px;\n`;
+                    htmlCode += `            width: ${Math.round(comp.width)}px;\n`;
                 }
                 if (comp.height) {
-                    cssCode += `    height: ${Math.round(comp.height)}px;\n`;
+                    htmlCode += `            height: ${Math.round(comp.height)}px;\n`;
                 }
-                cssCode += `    /* Percentage based (relative to canvas): */\n`;
-                cssCode += `    /* left: ${((comp.x / layoutCanvas.offsetWidth) * 100).toFixed(2)}%; */\n`;
-                cssCode += `    /* top: ${((comp.y / layoutCanvas.offsetHeight) * 100).toFixed(2)}%; */\n`;
-                if (comp.width) {
-                    cssCode += `    /* width: ${((comp.width / layoutCanvas.offsetWidth) * 100).toFixed(2)}%; */\n`;
-                }
-                if (comp.height) {
-                    cssCode += `    /* height: ${((comp.height / layoutCanvas.offsetHeight) * 100).toFixed(2)}%; */\n`;
-                }
-                cssCode += `}\n\n`;
+                htmlCode += `        }\n\n`;
             });
 
-            exportCode.textContent = cssCode;
+            // CSS for component styles
+            htmlCode += `        /* Component Styles */\n`;
+            canvasComponents.forEach((comp, index) => {
+                if (comp.css) {
+                    htmlCode += `        /* ${comp.name} - Component CSS */\n`;
+                    htmlCode += `        ${comp.css.split('\n').join('\n        ')}\n\n`;
+                }
+            });
+
+            htmlCode += `    </style>\n</head>\n<body>\n`;
+            htmlCode += `    <div class="layout-container">\n`;
+
+            // HTML for components
+            canvasComponents.forEach((comp, index) => {
+                const className = comp.name.toLowerCase().replace(/[^a-z0-9]+/g, '-');
+                htmlCode += `        <!-- ${comp.name} -->\n`;
+                htmlCode += `        <div class="${className}-wrapper">\n`;
+                htmlCode += `            ${comp.html.split('\n').map(line => '            ' + line).join('\n')}\n`;
+                htmlCode += `        </div>\n\n`;
+            });
+
+            htmlCode += `    </div>\n</body>\n</html>`;
+
+            exportCode.textContent = htmlCode;
             exportModal.classList.add('show');
         });
 
@@ -7555,22 +7623,22 @@
         copyExportBtn.addEventListener('click', async () => {
             try {
                 await navigator.clipboard.writeText(exportCode.textContent);
-                showToast('CSS copied to clipboard!');
+                showToast('Code copied to clipboard!');
             } catch (e) {
                 console.error('Copy failed:', e);
             }
         });
 
-        // Download Export as CSS file
+        // Download Export as HTML file
         downloadExportBtn.addEventListener('click', () => {
-            const blob = new Blob([exportCode.textContent], { type: 'text/css' });
+            const blob = new Blob([exportCode.textContent], { type: 'text/html' });
             const url = URL.createObjectURL(blob);
             const a = document.createElement('a');
             a.href = url;
-            a.download = 'layout-positions.css';
+            a.download = 'layout-export.html';
             a.click();
             URL.revokeObjectURL(url);
-            showToast('CSS file downloaded!');
+            showToast('HTML file downloaded!');
         });
 
         // Click outside canvas to deselect
